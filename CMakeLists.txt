@@ -1,12 +1,14 @@
 cmake_minimum_required(VERSION 3.13.1)
 
-include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-project(ei_standalone_esp32)
+if(NOT TARGET app)
+     message(FATAL_ERROR "Please create a target named 'app' (ex: add_executable(app)) before adding this file")
+endif()
 
-idf_build_set_property(COMPILE_OPTIONS "-fdiagnostics-color=always" APPEND)
-idf_build_set_property(COMPILE_OPTIONS "-Wno-unused-variable" APPEND)
-idf_build_set_property(COMPILE_OPTIONS "-Wno-maybe-uninitialized" APPEND)
-idf_build_set_property(COMPILE_OPTIONS "-Wno-error=format=" APPEND)
-idf_build_set_property(COMPILE_OPTIONS "-Wno-unused-but-set-parameter" APPEND)
-idf_build_set_property(COMPILE_OPTIONS "-Wno-error=nonnull-compare" APPEND)
-idf_build_set_property(COMPILE_OPTIONS "-Wno-error=stringop-truncation" APPEND)
+include(edge-impulse-sdk/cmake/utils.cmake)
+add_subdirectory(edge-impulse-sdk/cmake/zephyr)
+
+RECURSIVE_FIND_FILE_APPEND(MODEL_SOURCE "tflite-model" "*.cpp")
+target_include_directories(app PRIVATE .)
+
+# add all sources to the project
+target_sources(app PRIVATE ${MODEL_SOURCE})
