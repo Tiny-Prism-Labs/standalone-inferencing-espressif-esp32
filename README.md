@@ -14,3 +14,5 @@
 * [https://github.com/edgeimpulse/inferencing-sdk-cpp](General Info)
 * [https://github.com/edgeimpulse/inferencing-sdk-cpp/blob/master/dsp/numpy.hpp](Numpy Implementation)
 * [https://github.com/ARM-software/CMSIS-DSP](ARM CMSIS-DSP Implementation)
+  * [https://arm-software.github.io/CMSIS-DSP/latest/](Documentaiton for Above Repo)
+* 
